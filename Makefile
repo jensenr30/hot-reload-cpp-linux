@@ -7,6 +7,11 @@ run: all
 	./main
 
 
+.PHONY: clean
+clean:
+	-rm main
+	-rm dynamic-lib.so
+
 main: main.cpp
 	g++ main.cpp -o main
 
