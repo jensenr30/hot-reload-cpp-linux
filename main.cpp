@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static int hot_load_and_unload()
+static int load_and_unload_lib()
 {
     printf("Hello from %s()\n", __func__);
     // Attempt to load the dynamic library file
@@ -52,7 +52,7 @@ int main()
 {
     while(1)
     {
-        int err = hot_load_and_unload();
+        int err = load_and_unload_lib();
         if (err)
         {
             return err;
