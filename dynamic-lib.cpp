@@ -5,5 +5,5 @@
 extern "C"
 int dynamic_library_function(void) {
     printf("Hello from %s()\n", __func__);
-    return 5;
+    return 7;
 }

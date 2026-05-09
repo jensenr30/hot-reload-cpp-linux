@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include <cstdlib>
 #include <dlfcn.h>
+#include <stdio.h>
+#include <unistd.h>
 
-int main()
+static int hot_load_and_unload()
 {
     printf("Hello from %s()\n", __func__);
     // Attempt to load the dynamic library file
@@ -30,16 +32,34 @@ int main()
     // NOTE: the function-pointer signature MUST match the function signature in the dynamic library
     int (*pointer_to_dynamically_loaded_function)(void) = (int (*)(void))pointer;
 
-    // call the function we dynamically loaded
+    // call dynamically loaded code
     int result = pointer_to_dynamically_loaded_function();
-
     printf("The dynamically loaded function returned %d\n", result);
 
+    // close the lib
     int err = dlclose(lib_handle);
-    if (err) {
+    if (err)
+    {
         fprintf(stderr, "%s\n", dlerror());
         fprintf(stderr, "Failed to unload dynamic lib\n");
         return 3;
     }
+
+    return 0;
+}
+
+int main()
+{
+    while(1)
+    {
+        int err = hot_load_and_unload();
+        if (err)
+        {
+            return err;
+        }
+        sleep(1);
+        system("make dynamic-lib.so");
+    }
+
     return 0;
 }
