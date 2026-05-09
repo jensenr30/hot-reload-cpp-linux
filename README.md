@@ -1,10 +1,18 @@
 # Hot-Reloading C++ on Linux
 A simple program demonstrating hot-reloading C++ code on linux.
 
-## Build and Run
+
+## Build
+```
+make
+```
+
+
+## Run
 ```
 make run
 ```
+
 
 While the program is running, try editing `dynamic-lib.cpp` and see what happens
 
