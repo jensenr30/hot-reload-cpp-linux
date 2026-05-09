@@ -35,8 +35,11 @@ int main()
 
     printf("The dynamically loaded function returned %d\n", result);
 
-    // One could unload the dynamic library by calling dlclose() (e.g. hot re-loading code)
-    // But that is not necesssary for this simple demo program
-    // The operating system will unload the library for us after we return from main
+    int err = dlclose(lib_handle);
+    if (err) {
+        fprintf(stderr, "%s\n", dlerror());
+        fprintf(stderr, "Failed to unload dynamic lib\n");
+        return 3;
+    }
     return 0;
 }
