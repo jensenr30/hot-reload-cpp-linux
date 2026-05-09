@@ -1,5 +1,7 @@
-# Dynamic Library Example for Linux
-A simple program demonstrating loading a dynamic library on linux.
+# Hot-Reloading C++ on Linux
+A simple program demonstrating hot-reloading C++ code on linux.
+
+Check out [dynamic-link-cpp-linux](https://github.com/jensenr30/dynamic-link-cpp-linux) to see a simpler program demonstrating dynamic linking only.
 
 
 ## Build and Run
