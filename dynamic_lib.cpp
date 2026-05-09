@@ -55,7 +55,7 @@ int dynamic_library_function(DynamicLibContext *ctx)
     ctx->index = ctx->index % array_len;
     array[ctx->index]++;
 
-    printf("Array: \n");
+    printf("Array: (0x%08lx)\n", &array);
     for (int i = 0; i < array_len; i++) {
         printf("%10d  ", array[i]);
     }
