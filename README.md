@@ -14,12 +14,12 @@ make run
 ```
 
 
-While the program is running, try editing `dynamic-lib.cpp` and see what happens
+While the program is running, try editing `dynamic_lib.cpp` and see what happens
 
 
 ## Inspect the dynamic lib's symbols
 ```
-readelf -s -W dynamic-lib.so
+readelf -s -W dynamic_lib.so
 ```
 
 

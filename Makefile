@@ -1,5 +1,5 @@
 .PHONY: all
-all: main dynamic-lib.so
+all: main dynamic_lib.so
 
 
 .PHONY: run
@@ -10,11 +10,11 @@ run: all
 .PHONY: clean
 clean:
 	-rm main
-	-rm dynamic-lib.so
+	-rm dynamic_lib.so
 
 main: main.cpp
 	g++ main.cpp -o main
 
 
-dynamic-lib.so: dynamic-lib.cpp
-	g++ -fPIC -shared dynamic-lib.cpp -o dynamic-lib.so
+dynamic_lib.so: dynamic_lib.cpp
+	g++ -fPIC -shared dynamic_lib.cpp -o dynamic_lib.so

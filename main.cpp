@@ -7,7 +7,7 @@ static int load_and_unload_lib()
 {
     printf("Hello from %s()\n", __func__);
     // Attempt to load the dynamic library file
-    const char *lib_file = "./dynamic-lib.so";
+    const char *lib_file = "./dynamic_lib.so";
     void *lib_handle = dlopen(lib_file, RTLD_NOW);
 
     if (lib_handle == NULL)
