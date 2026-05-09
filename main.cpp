@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "dynamic_lib_context.hpp"
+
+DynamicLibContext context;
+
 static int load_and_unload_lib()
 {
     printf("Hello from %s()\n", __func__);
@@ -30,10 +34,10 @@ static int load_and_unload_lib()
 
     // Cast the void-pointer into function-pointer so we can call the function at which it points.
     // NOTE: the function-pointer signature MUST match the function signature in the dynamic library
-    int (*pointer_to_dynamically_loaded_function)(void) = (int (*)(void))pointer;
+    int (*pointer_to_dynamically_loaded_function)(DynamicLibContext *) = (int (*)(DynamicLibContext *))pointer;
 
     // call dynamically loaded code
-    int result = pointer_to_dynamically_loaded_function();
+    int result = pointer_to_dynamically_loaded_function(&context);
     printf("The dynamically loaded function returned %d\n", result);
 
     // close the lib
@@ -48,8 +52,14 @@ static int load_and_unload_lib()
     return 0;
 }
 
+static void init_context(DynamicLibContext *ctx) {
+    ctx->index = 0;
+}
+
 int main()
 {
+    init_context(&context);
+
     while(1)
     {
         int err = load_and_unload_lib();
@@ -58,7 +68,7 @@ int main()
             return err;
         }
         sleep(1);
-        system("make dynamic-lib.so");
+        system("make dynamic_lib.so");
     }
 
     return 0;

@@ -4,7 +4,8 @@
 
 #include "dynamic_lib_context.hpp"
 
-static ListItem *alloc_new_list_item() {
+static ListItem *alloc_new_list_item()
+{
     ListItem *ptr = new ListItem;
     if (!ptr)
     {
@@ -12,8 +13,12 @@ static ListItem *alloc_new_list_item() {
         quick_exit(66);
     }
     ptr->value = INT32_MIN;
+    ptr->next = NULL;
     return ptr;
 }
+
+static const int array_len = 10;
+static int array[array_len];
 
 // 'extern "C"' prevents the C++ compiler from mangling the name of this function
 // this allows the main program to look-up this function's address by name
@@ -29,19 +34,32 @@ int dynamic_library_function(DynamicLibContext *ctx)
     }
 
     printf("List:\n");
-    ListItem *last_valid_list_item = ctx->list;
-    int last_value = INT32_MIN;
+    int last_value = -600;
     ListItem *ptr = ctx->list;
-    while(ptr)
+    while(1)
     {
         printf("%d  ", ptr->value);
         last_value = ptr->value;
-        last_valid_list_item = ptr;
+        if (ptr->next == NULL) {
+            ptr->next = alloc_new_list_item();
+            ptr->next->value = ptr->value + 1;
+            printf("%d  ", ptr->next->value);
+            break;
+        }
         ptr = ptr->next;
     }
+    printf("\n");
 
-    last_valid_list_item->next = alloc_new_list_item();
-    last_valid_list_item->next->value = last_value++;
 
-    return 5;
+    ctx->index++;
+    ctx->index = ctx->index % array_len;
+    array[ctx->index]++;
+
+    printf("Array: \n");
+    for (int i = 0; i < array_len; i++) {
+        printf("%10d  ", array[i]);
+    }
+    printf("\n");
+
+    return 9;
 }

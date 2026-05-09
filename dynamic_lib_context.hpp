@@ -8,6 +8,7 @@ struct ListItem {
 
 // a struct containing ALL the data and pointers to data to be used by the dynamic library
 struct DynamicLibContext {
+    int index;
     ListItem *list;
 };
 
